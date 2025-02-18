@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Konfigurasi Gemini API
-sys_instruct = "You are a data processing assistant. Your job is to clean and structure OCR results into a tabular format that can be directly converted into a CSV file."
+sys_instruct = "You are a data processing assistant. Your job is to clean and structure OCR results into a tabular format that can be directly converted into a CSV file, please make | as the csv separator and cast every data to string so it will make data preprocessing easier."
 client = genai.Client(api_key=os.getenv('GEMINI_API'))
 
 
@@ -86,16 +86,16 @@ def main(image_path):
 
 
 main_path="raw_data/koran/"
-for dir in os.listdir(main_path):
-    if os.path.isdir(main_path+dir):
-        print(dir)
-        dir_img=os.listdir(main_path+dir)
-        for img in sorted(dir_img, key=lambda x:int(x.split('.')[0])):
-            if img.endswith(".jpg"):
-                gambar_input = main_path+dir+"/"+img
-                print(f"membuka direktori: {dir}")
-                print(f"memproses gambar: {img}")
-                dir_path=f"raw_data/koran/{dir}/"
-                main(gambar_input)
-            else:
-                continue
+# for dir in os.listdir(main_path):
+#     if os.path.isdir(main_path+dir):
+#         print(dir)
+dir_img=os.listdir(main_path+"3. Rekening Koran_604_APBN_102024")
+for img in sorted(dir_img, key=lambda x:int(x.split('.')[0])):
+    if img.endswith(".jpg"):
+        gambar_input = main_path+"3. Rekening Koran_604_APBN_102024"+"/"+img
+        # print(f"membuka direktori: {dir}")
+        print(f"memproses gambar: {img} \n")
+        dir_path=f"raw_data/koran/3. Rekening Koran_604_APBN_102024/"
+        main(gambar_input)
+    else:
+        continue
